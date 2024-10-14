@@ -22,12 +22,10 @@ def ussd_callback(request):
     service_code = request.POST.get("serviceCode")
     phone_number = request.POST.get("phoneNumber")
     text = request.POST.get("text")
-    print(text)
     user_input = text.split("*")
     cpin = None
     response = ""
     client = Client.objects.filter(phone=phone_number).first()
-    print(client)
     
     if not client:
         client = Client(phone=phone_number)
@@ -40,32 +38,16 @@ def ussd_callback(request):
         client.name = user_input[5]
         client.save()
         return HttpResponse(success_swahili())
-    # if len(user_input) >= 2 and user_input[1] == "2" and user_input[0] == "1":
-    #     if client.location:
-    #         location = client.location
-    #     else:
-    #         response = "END you are not registered. Please subscribe first"
-    #         return HttpResponse(response)
-    # if len(user_input) >= 2 and user_input[1] == "2" and user_input[0] == "2":
-    #     if client.location:
-    #         location = client.location
-    #     else:
-    #         response = "END Haujajiandikisha. Tafadhali jiandikise kwanza."
-    #         return HttpResponse(response)
-        
     if len(user_input) >= 3 and user_input[1] == "1":
         region = Region.objects.all()[int(user_input[2])-1]
         
     if len(user_input) >= 4 and user_input[1] == "1":
         counties = City.objects.filter(region=region)
         county = counties[int(user_input[3])-1]
-        print("setting county",county)
     if len(user_input) >= 5 and user_input[1] == "1":
         sub_county = SubCounty.objects.filter(city=county)[int(user_input[4])-1]
         client.location = sub_county.sub_county
-        client.save()
-        print("setting sub-county",county)
-         
+        client.save() 
     
     if text == "":
         response = index()
@@ -100,16 +82,16 @@ def ussd_callback(request):
         return HttpResponse(response)
     elif user_input[0] == "2" and len(user_input) == 4 and user_input[1] == "1":
         # return list of sub counties
-        print("county",county)
+        
         sub_counties = SubCounty.objects.filter(city=county)
-        print("sub counties",sub_counties)
+        
         response = select_sub_county_swahili(sub_counties=sub_counties)
         return HttpResponse(response)
     elif user_input[0] == "1" and len(user_input) == 4 and user_input[1] == "1":
         # return list of sub counties
-        print("county",county)
+        
         sub_counties = SubCounty.objects.filter(city=county)
-        print("sub counties",sub_counties)
+        
         response = select_sub_county(sub_counties=sub_counties)
         return HttpResponse(response)
     elif user_input[0] == "1" and len(user_input) == 5 and user_input[1] == "1":
@@ -255,7 +237,7 @@ def select_county_swahili(counties) -> str:
     return res
 
 def select_sub_county(sub_counties) -> str:
-    print("sub counties",sub_counties)
+    
     res = "CON Select your sub county:\n"
     i = 1
     for sub_county in sub_counties:
@@ -336,7 +318,7 @@ def get_weather_updates(location) -> str:
 def get_weather_update_swahili(location) -> str:
     subcounty = SubCounty.objects.get(sub_county=location)
     county = subcounty.city
-    print("getting weather updates for",county)
+    
     try:
         updates = Weather.objects.get(city=county)
     except Weather.DoesNotExist:
@@ -352,8 +334,8 @@ def get_weather_update_swahili(location) -> str:
 
 @api_view(["POST"])
 def mpesa_callback(request):
-    print("Mpesa Callback")
-    print(request.data)
+    
+    
     return Response(status=status.HTTP_200_OK)
 
 

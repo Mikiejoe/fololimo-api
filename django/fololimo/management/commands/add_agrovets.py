@@ -82,10 +82,7 @@ PHONES = [
 ]
 
 
-def print_nums():
-    print("sub_counties",len(SUB_COUNTIES))
-    print("Email",len(EMAILS))
-    print("Phone",len(PHONES))
+
 
 
 class Command(BaseCommand):
