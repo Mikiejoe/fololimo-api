@@ -264,6 +264,76 @@ POST:/api/v1/users/user/
 
 }
 ```
+Get all details
+
+POST:/api/v1/details/
+
+> AUTHORIZATIONS:> **_Token_**
+>
+> REQUEST BODY SCHEMA: application/json
+
+
+
+> Response Samples
+>
+> Status:200
+>
+> RESPONSE SCHEMA: application/json
+
+```python
+{
+  "weather": [
+    {
+      "id": 4,
+      "temperature": 26.07,
+      "description": "overcast clouds",
+      "city": "Nakuru",
+      "humidity": 39.0,
+      "min_temp": 26.07,
+      "max_temp": 26.07,
+      "pressure": 1014.0
+    },
+    {
+      "id": 26,
+      "temperature": 25.16,
+      "description": "light rain",
+      "city": "Kakamega",
+      "humidity": 56.0,
+      "min_temp": 25.16,
+      "max_temp": 25.16,
+      "pressure": 1014.0
+    }
+  ],
+  "profile": {
+    "pk": 1,
+    "username": "mike",
+    "email": "mike@site.com"
+  },
+  "farms": [
+    {
+      "name": "My Farm",
+      "location": "Nakuru East",
+      "size": 26.0,
+      "longitude": null,
+      "latitude": null,
+      "id": 24,
+      "city": 7,
+      "city_name": "Nakuru"
+    },
+    {
+      "name": "Farm mike",
+      "location": "Lurambi",
+      "size": 1234.0,
+      "longitude": null,
+      "latitude": null,
+      "id": 26,
+      "city": 37,
+      "city_name": "Kakamega"
+    }
+  ],
+  "activities": []
+}
+```
 
 ## Farm
 
