@@ -8,7 +8,7 @@ class FarmSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Farm
-        fields =["name","location","size","longitude","latitude","id","city","city_name"]
+        fields =["name","location","size","longitude","latitude","id","city","city_name","user"]
         
     def get_city(self,obj):
         sub_county = SubCounty.objects.get(sub_county=obj.location)
