@@ -5,7 +5,7 @@ async function postFarm() {
     size: 23.54,
   });
   let headersList = {
-    Authorization: "Token  e695aa9901c6e369ebae9c8ceba9b234d09dfe64",
+    Authorization: `Token  ${token}`,
     "Content-Type": "application/json",
   };
 

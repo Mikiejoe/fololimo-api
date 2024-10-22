@@ -8,6 +8,6 @@ router.register('activities', views.ActivityViewset, basename='activities')
 
 
 urlpatterns = [
-    path('farm/<str:id>/',views.get_farm, name="get-farm"),
+    path('farm/<str:id>/', views.get_farm, name="get-farm"),
     path('', include(router.urls))
 ]

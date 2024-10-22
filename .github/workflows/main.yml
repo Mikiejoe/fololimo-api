@@ -2,7 +2,7 @@ name: Daily Weather updates for each county
 
 on:
   schedule:
-    - cron: '0 */3 * * *'  # Runs every day at midnight UTC
+    - cron: "0 */3 * * *" # Runs every day at midnight UTC
 
 jobs:
   update-db:
@@ -15,14 +15,14 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
-          
+          python-version: "3.x"
+
       - name: Install dependencies
         run: |
           cd django
           python -m pip install --upgrade pip
           pip install -r requirements.txt  # Install project dependencies
-          
+
       - name: Set environment variables
         run: echo "Environment variables set"
         env:
@@ -43,7 +43,6 @@ jobs:
           DEBUG: ${{ secrets.DEBUG }}
           DARAJA_SHORTCODE: ${{ secrets.DARAJA_SHORTCODE }}
 
-      
       - name: Run DB update command
         run: |
           cd django
